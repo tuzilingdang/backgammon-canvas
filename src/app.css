@@ -1,0 +1,47 @@
+
+body {
+	text-align: center;
+}
+header {
+	height: 10rem;
+	font-size: 32px;
+	vertical-align: middle;
+}
+
+main{
+	width: 100%;
+	height: 60rem;
+}
+
+#checker-board {
+	width: 850px;
+	height: 850px;
+	margin: 0 auto;
+	/*background: aliceblue;*/
+}
+
+.btn-group {
+	display: inline-block;
+	line-height: 6rem;
+}
+
+.btn {
+	width: 12rem;
+	height: 4rem;
+	background: #c38b38;
+	border: none;
+	border-radius: 5px;
+	font-size: 32px;
+	margin-left: 1rem;
+}
+
+.btn .active {
+	width: 12rem;
+	height: 4rem;
+	background: #735425;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	font-size: 32px;
+	margin-left: 1rem;
+}
