@@ -2,24 +2,70 @@
 body {
 	text-align: center;
 }
-header {
-	height: 4rem;
-	font-size: 20px;
-	vertical-align: middle;
-}
 
 main{
-	width: 100%;
 	position: absolute;
 	display: flex;
 	flex-direction: column;
 	right: 0;
 }
 
-#checker-board, #piece-board {
+@media only screen and (max-width: 1024px) {
+	header {
+		height: 2rem;
+		font-size: 16px;
+		vertical-align: middle;
+	}
+
+	main{
+		width: 100%;
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		right: 0;
+	}
+
+	canvas {
+		top: 5rem;
+	}
+
+	.btn , .btn:active, .active{
+		width: 4rem;
+		height: 1.5rem;
+		font-size: 12px;
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	header {
+		height: 2rem;
+		font-size: 16px;
+		vertical-align: middle;
+	}
+
+	main{
+		position: absolute;
+		width: 50%;
+		display: flex;
+		left: 25%;
+		flex-direction: column;
+	}
+
+	canvas {
+		top: 5rem;
+	}
+
+	.btn , .btn:active, .active {
+		width: 6rem;
+		height: 2rem;
+		font-size: 16px;
+	}
+}
+
+
+canvas {
 	position: absolute;
 	width: 90%;
-	top: 6rem;
 	left: 5%;
 }
 
@@ -29,18 +75,13 @@ main{
 }
 
 .btn {
-	width: 6rem;
-	height: 2rem;
 	background: #c38b38;
 	border: none;
 	border-radius: 5px;
-	font-size: 16px;
 	margin-left: 1rem;
 }
 
 .btn:active {
-	width: 6rem;
-	height: 2rem;
 	background: #8e6528;
 	color: white;
 	border: none;
@@ -50,8 +91,6 @@ main{
 }
 
  .active {
-	width: 6rem;
-	height: 2rem;
 	background: grey;
 	color: #ffffff;
 	border: none;

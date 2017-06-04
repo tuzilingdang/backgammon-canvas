@@ -14,8 +14,9 @@ require(["jquery", "backgammon"], function ($, Backgammon) {
 	backgammon.init();
 
 	$("#start").click(function() {
-                backgammon.init();
-		backgammon.start();
+               
+               backgammon.init();
+	       backgammon.start();
 	})
 });
 
