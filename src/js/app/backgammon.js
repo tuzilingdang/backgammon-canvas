@@ -74,7 +74,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		// 落子改变矩阵状态
 		changeStateMatrix: function() {
 			this.stateMatrix[this.statePos.x][this.statePos.y] = this.turnState;
-			this.historyMatrix = this.stateMatrix;
+			this.historyMatrix[this.statePos.x][this.statePos.y] = this.turnState;
 		},
 
 		// 放置棋子
@@ -260,8 +260,14 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 			// this.piece.draw(this.mousePos);
 			// this.stateMatrix[this.statePos.x][this.statePos.y] = this.historyMatrix[this.statePos.x][this.statePos.y];
 			// this.historyMatrix = this.stateMatrix;
-			this.turnState = (this.turnState === "X") ? "X" : "O";
-			this.placePiece();
+			var historyState = this.historyMatrix[this.statePos.x][this.statePos.y];
+			var color = (historyState === "X" ) ? "black" : "white";
+			this.piece.setPiecePos(this.mousePos);
+			this.piece.draw(color);
+			this.stateMatrix[this.statePos.x][this.statePos.y] = historyState;
+			this.turnState = (historyState === "X") ? "O" : "X";
+
+			// this.placePiece();
 		},
 
 		timeCount: function() {
