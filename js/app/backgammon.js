@@ -103,6 +103,8 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 					case "O":
 						this.gameOver("O");
 						break;
+					default:
+						break;
 				}
 			}
 		},
