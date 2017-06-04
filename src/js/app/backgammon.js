@@ -27,6 +27,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		// 开局
 		start: function() {
 			var that = this;
+			// $("footer").hide();
 			$("#start").addClass("active");
 			$("#checker-board").unbind();
 			this.initStateMatrix(this.matrixWidth, this.matrixHeight);
@@ -214,6 +215,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		},
 
 		gameOver: function(player) {
+			var that = this;
 			if (player) {
 				if (player === "X") {
 					player = "黑方"
@@ -221,11 +223,15 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 				if (player === "O") {
 					player = "白方"
 				}
-				// $("footer").show();
-				// $("#timer").html(player + "获胜，游戏结束");
-				alert(player + "获胜，游戏结束");
+				$("#timer").html(player + "获胜，游戏结束");
+				$("footer").show();
+				// alert(player + "获胜，游戏结束");
 			}
-			this.init();
+			$("#restart").click(function() {
+				that.init();
+				that.start();
+				$("#start").unbind();
+			})
 		},
 
 		// 回到上一步

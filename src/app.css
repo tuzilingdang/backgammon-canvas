@@ -100,9 +100,11 @@ canvas {
 }
 
 footer {
+	position: absolute;
 	margin-top: 1rem;
 	height: 4rem;
 	width: 100%;
+	top: 25rem;
 }
 
 footer h1 {
@@ -115,4 +117,12 @@ footer h1 {
 	background: #cc7a61;
 	left: 20%;
 	border-radius: 10px;
+}
+
+footer button {
+	background: #c38b38;
+	border: none;
+	border-radius: 5px;
+	margin-left: 1rem;
+	margin-top: 5rem;
 }
