@@ -11,9 +11,10 @@ require.config({
 // 开始 app 主逻辑.
 require(["jquery", "backgammon"], function ($, Backgammon) {
 	var backgammon = new Backgammon();
-	backgammon.start();
+	backgammon.init();
 
 	$("#start").click(function() {
+                backgammon.init();
 		backgammon.start();
 	})
 });

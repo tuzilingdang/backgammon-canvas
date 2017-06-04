@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
 	<title>Backgammon-Canvas</title>
 	<link rel="stylesheet" type="text/css" href="./app.css">
 </head>
@@ -15,8 +16,12 @@
 			<button class="btn" id="put-back">撤销悔棋</button>
 		</div>
 		<canvas id="checker-board" width="440" height="440"></canvas>
+		<canvas id="piece-board" width="440" height="440"></canvas>			
+
 	</main>
-	<footer></footer>
+	<footer>
+		<h1 id="timer"></h1>
+	</footer>
 
 	<!-- <script type="text/javascript" src="./require.js"></script> -->
 	<script data-main="app.js" src="require.js"></script>

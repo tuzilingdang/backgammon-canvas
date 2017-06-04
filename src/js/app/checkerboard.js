@@ -14,7 +14,12 @@ define(["jquery"], function($) {
 
 		// 初始化棋盘
 		init: function() {
+			$("main").height($("#checker-board").width() + $(".btn-group").height());
+			$("#checker-board").height($("#checker-board").width());
 			var canvas = $("#checker-board")[0];
+			$("#checker-board").unbind();
+			canvas.width = canvas.width;
+			canvas.height = canvas.height;
 			this.ctx = canvas.getContext("2d");
 			this.fillbackGroundColor();
 			this.drawBorder();
@@ -95,11 +100,12 @@ define(["jquery"], function($) {
 			};
 		},
 
+		// 落子获取状态矩阵坐标值
 		getStateCoordinate: function(e) {
 			var mousePos = this.getMousePos(e);
 			return {
-				i: Math.round(mousePos.x / this.spacing) ,
-				j: Math.round(mousePos.y / this.spacing)
+				x: Math.round(mousePos.x / this.spacing) ,
+				y: Math.round(mousePos.y / this.spacing)
 			};
 		}
 	}
@@ -107,6 +113,3 @@ define(["jquery"], function($) {
 	return CheckerBoard;
 })
 
-
-	// var checkerBoard = new CheckerBoard(440, 440, 30, 10);
-	// checkerBoard.init();
