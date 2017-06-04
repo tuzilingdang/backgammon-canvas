@@ -17,5 +17,7 @@ require(["jquery", "backgammon"], function($, Backgammon) {
         backgammon.init();
         backgammon.start();
         $("#start").unbind();
-    })
+    });
+
+
 });

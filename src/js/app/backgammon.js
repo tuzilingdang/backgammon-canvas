@@ -31,6 +31,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 			$("#start").addClass("active");
 			$("#checker-board").unbind();
 			this.initStateMatrix(this.matrixWidth, this.matrixHeight);
+			this.initHistoryMatrix(this.matrixWidth, this.matrixHeight);
 			this.turnState = "X"; // turnState标记走棋顺序，X 代表黑棋， O 代表白棋
 			this.count = 0;
 			// this.timeCount();
@@ -55,6 +56,17 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 				this.stateMatrix[i] = new Array();
 				for (var j = 0; j < height + 1; j++) {
 					this.stateMatrix[i][j] = "null";
+				}
+			}
+		},
+
+		// 初始化记录历史状态的矩阵
+		initHistoryMatrix: function(width, height) {
+			this.historyMatrix = new Array();
+			for (var i = 0; i < width + 1; i++) {
+				this.historyMatrix[i] = new Array();
+				for (var j = 0; j < height + 1; j++) {
+					this.historyMatrix[i][j] = "null";
 				}
 			}
 		},
@@ -225,12 +237,14 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 				}
 				$("#timer").html(player + "获胜，游戏结束");
 				$("footer").show();
+				that.stateMatrix = null;
+				that.historyMatrix = null;
 				// alert(player + "获胜，游戏结束");
 			}
 			$("#restart").click(function() {
-				that.init();
-				that.start();
-				$("#start").unbind();
+			    that.init();
+			    that.start();
+			    $("#start").unbind();
 			})
 		},
 
