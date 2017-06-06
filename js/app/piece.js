@@ -1,11 +1,9 @@
 define(["jquery"], function() {
 	// 棋子构造函数
-	function Piece(boardWidth, boardHeight, spacing, margin) {
+	function Piece(boardWidth, boardHeight, r) {
 		this.boardWidth = boardWidth || 440; //
 		this.boardHeight = boardHeight || 440;
-		this.spacing = spacing || 30;
-		this.margin = margin || 10;
-		this.r =  10 // 棋子半径
+		this.r =  r || 10 // 棋子半径
 	}
 
 	Piece.prototype = {
@@ -17,12 +15,6 @@ define(["jquery"], function() {
 			this.ctx = canvas.getContext("2d");
 			canvas.width = canvas.width;
 			canvas.height = canvas.height;
-			// this.fillbackGroundColor();
-		},
-
-		setPiecePos: function(pos) {
-			this.x = pos.x;
-			this.y = pos.y;
 		},
 
 		// 填充棋子画布颜色
@@ -31,10 +23,10 @@ define(["jquery"], function() {
 			this.ctx.fillRect(0, 0, this.boardWidth, this.boardWidth);
 		},
 
-		draw: function(color) {
+		draw: function(pos, color) {
 			this.ctx.fillStyle = color;
 			this.ctx.beginPath();
-			this.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
+			this.ctx.arc(pos.x, pos.y, this.r, 0, Math.PI * 2, true);
 			this.ctx.closePath();
 			this.ctx.fill();
 		},

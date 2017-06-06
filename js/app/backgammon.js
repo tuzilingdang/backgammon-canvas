@@ -10,8 +10,6 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 
 		// 初始化棋盘
 		init: function() {
-			$("#start").removeClass("active");
-			$("footer").hide();
 			var boardWidth = 440,
 				boardHeight = 440; // 棋盘边长
 			var spacing = 30; //格子间距
@@ -19,15 +17,21 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 			this.matrixWidth = (boardWidth - 2 * margin) / spacing; // 初始化矩阵长
 			this.matrixHeight = (boardHeight - 2 * margin) / spacing; // 初始化矩阵宽
 
+			$("#start").removeClass("active");
+			$(".mask").hide();
+			$("#checker-board").unbind();
+			$("#take-back").unbind();
+			$("#put-back").unbind();
+
 			this.checkerBoard = new CheckerBoard(boardWidth, boardHeight, spacing, margin);
 			this.checkerBoard.init();
-			this.piece = new Piece(boardWidth, boardHeight, spacing, margin);
+			this.piece = new Piece(boardWidth, boardHeight);
 			this.piece.init();
 		},
 		// 开局
 		start: function() {
 			var that = this;
-			// $("footer").hide();
+			// $(".mask").hide();
 			$("#start").addClass("active");
 			$("#checker-board").unbind();
 			this.initStateMatrix(this.matrixWidth, this.matrixHeight);
@@ -86,8 +90,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 			}
 
 			if (this.stateMatrix[this.statePos.x][this.statePos.y] === "null") {
-				this.piece.setPiecePos(this.mousePos);
-				this.piece.draw(color);
+				this.piece.draw(this.mousePos, color);
 				this.changeStateMatrix();
 
 				switch (this.caculateWinner(this.statePos)) {
@@ -238,9 +241,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 					player = "白方"
 				}
 				$("#timer").html(player + "获胜，游戏结束");
-				$("footer").show();
-				that.stateMatrix = null;
-				that.historyMatrix = null;
+				$(".mask").show();
 				// alert(player + "获胜，游戏结束");
 			}
 			$("#restart").click(function() {
@@ -259,17 +260,11 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 
 		// 撤销悔棋
 		putBackPiece: function() {
-			// this.piece.draw(this.mousePos);
-			// this.stateMatrix[this.statePos.x][this.statePos.y] = this.historyMatrix[this.statePos.x][this.statePos.y];
-			// this.historyMatrix = this.stateMatrix;
 			var historyState = this.historyMatrix[this.statePos.x][this.statePos.y];
 			var color = (historyState === "X" ) ? "black" : "white";
-			this.piece.setPiecePos(this.mousePos);
-			this.piece.draw(color);
+			this.piece.draw(this.mousePos, color);
 			this.stateMatrix[this.statePos.x][this.statePos.y] = historyState;
 			this.turnState = (historyState === "X") ? "O" : "X";
-
-			// this.placePiece();
 		},
 
 		timeCount: function() {

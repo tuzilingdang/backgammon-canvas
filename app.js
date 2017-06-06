@@ -18,6 +18,4 @@ require(["jquery", "backgammon"], function($, Backgammon) {
         backgammon.start();
         $("#start").unbind();
     });
-
-
 });
