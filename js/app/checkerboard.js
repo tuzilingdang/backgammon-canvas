@@ -27,6 +27,15 @@ define(["jquery"], function($) {
 			this.drawBoardArc();
 		},
 
+		// 绘制棋盘上的黑色小圆点
+		makeDot: function(x, y, r) {
+			this.ctx.fillStyle = "#000000";
+			this.ctx.beginPath();
+			this.ctx.arc(x, y, r, 0, Math.PI * 2, true);
+			this.ctx.closePath();
+			this.ctx.fill();
+		},
+
 		// 填充棋盘颜色
 		fillbackGroundColor: function() {
 			this.ctx.fillStyle = this.boardBackColor;
@@ -63,19 +72,11 @@ define(["jquery"], function($) {
 			var centerX = (this.width / 2).toFixed(2),
 				centerY = (this.height / 2).toFixed(2);
 
-			function drawArc(x, y, r) {
-				that.ctx.fillStyle = "#000000";
-				that.ctx.beginPath();
-				that.ctx.arc(x, y, r, 0, Math.PI * 2, true);
-				that.ctx.closePath();
-				that.ctx.fill();
-			}
-
-			drawArc(centerX, centerY, 4);
-			drawArc(leftX, topY, 4);
-			drawArc(leftX, bottomY, 4);
-			drawArc(rightX, topY, 4);
-			drawArc(rightX, bottomY, 4);
+			this.makeDot(centerX, centerY, 4);
+			this.makeDot(leftX, topY, 4);
+			this.makeDot(leftX, bottomY, 4);
+			this.makeDot(rightX, topY, 4);
+			this.makeDot(rightX, bottomY, 4);
 		},
 
 		// 获取鼠标点击位置相对于canvas原点的像素坐标
