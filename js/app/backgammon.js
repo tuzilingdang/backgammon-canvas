@@ -1,8 +1,8 @@
 define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoard, Piece) {
 	// 五子棋构造函数
-	function Backgammon(checkerboard, piece) {
-		this.checkerboard = checkerboard || {},
-			this.piece = piece || {}
+	function Backgammon(checkerBoard, piece) {
+		this.checkerBoard = checkerBoard || {},
+		this.piece = piece || {}
 	}
 
 	Backgammon.prototype = {
@@ -10,24 +10,32 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 
 		// 初始化棋盘
 		init: function() {
-			var boardWidth = 440,
-				boardHeight = 440; // 棋盘边长
-			var spacing = 30; //格子间距
-			var margin = 10; //棋盘外边距
-			this.matrixWidth = (boardWidth - 2 * margin) / spacing; // 初始化矩阵长
-			this.matrixHeight = (boardHeight - 2 * margin) / spacing; // 初始化矩阵宽
-
+			$("#" + this.checkerBoard.id).html("");
 			$("#start").removeClass("active");
 			$(".mask").hide();
-			$("#checker-board").unbind();
+			$("#" + this.checkerBoard.id).unbind();
 			$("#take-back").unbind();
 			$("#put-back").unbind();
 
-			this.checkerBoard = new CheckerBoard(boardWidth, boardHeight, spacing, margin);
-			this.checkerBoard.init();
-			this.piece = new Piece(boardWidth, boardHeight);
+			this.setCheckerBoard(this.checkerBoard); // 设置棋盘属性
+			this.setPiece(this.piece.r); //  设置棋子属性
 			this.piece.init();
+
+			this.matrixWidth = (this.checkerBoard.width - 2 * this.checkerBoard.margin) / this.checkerBoard.spacing + 1; // 初始化矩阵长
+			this.matrixHeight = (this.checkerBoard.height - 2 * this.checkerBoard.margin) / this.checkerBoard.spacing + 1; // 初始化矩阵宽
 		},
+
+		// 设置棋盘属性
+		setCheckerBoard:  function(board) {
+			this.checkerBoard = new CheckerBoard(board);
+			this.checkerBoard.init();
+		},
+
+		// 设置棋子属性
+		setPiece: function(r) {
+			this.piece = new Piece( r, this.checkerBoard.id );
+		},
+
 		// 开局
 		start: function() {
 			var that = this;
@@ -56,9 +64,9 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		// 初始化记录棋局状态的矩阵
 		initStateMatrix: function(width, height) {
 			this.stateMatrix = new Array();
-			for (var i = 0; i < width + 1; i++) {
+			for (var i = 0; i < width ; i++) {
 				this.stateMatrix[i] = new Array();
-				for (var j = 0; j < height + 1; j++) {
+				for (var j = 0; j < height ; j++) {
 					this.stateMatrix[i][j] = "null";
 				}
 			}
@@ -67,9 +75,9 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		// 初始化记录历史状态的矩阵
 		initHistoryMatrix: function(width, height) {
 			this.historyMatrix = new Array();
-			for (var i = 0; i < width + 1; i++) {
+			for (var i = 0; i < width ; i++) {
 				this.historyMatrix[i] = new Array();
-				for (var j = 0; j < height + 1; j++) {
+				for (var j = 0; j < height ; j++) {
 					this.historyMatrix[i][j] = "null";
 				}
 			}
@@ -139,7 +147,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 				}
 
 				for (var i = pos.x + 1; i < 5 - count + pos.x; i++) {
-					if (i >= that.matrixWidth + 1) {
+					if (i >= that.matrixWidth ) {
 						return false;
 					} else {
 						if (that.stateMatrix[i][pos.y] !== player) {
@@ -161,7 +169,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 				}
 
 				for (var j = pos.y + 1; j < 5 - count + pos.y; j++) {
-					if (j >= that.matrixHeight + 1) {
+					if (j >= that.matrixHeight ) {
 						return false;
 					} else {
 						if (that.stateMatrix[pos.x][j] !== player) {
@@ -183,7 +191,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 					}
 				}
 				for (var j = 1; j < 5 - count; j++) {
-					if ((j + pos.y >= that.matrixHeight + 1) || (j + pos.x >= that.matrixHeight + 1)) {
+					if ((j + pos.y >= that.matrixHeight ) || (j + pos.x >= that.matrixHeight )) {
 						return false;
 					} else {
 						if (that.stateMatrix[pos.x + j][pos.y + j] !== player) {
@@ -197,14 +205,14 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 			function checkReverseDiagonal() {
 				var count = 0;
 				for (var j = 1; j < 5; j++) {
-					if ((pos.y - j) >= 0 && (j + pos.x) < that.matrixWidth + 1) {
+					if ((pos.y - j) >= 0 && (j + pos.x) < that.matrixWidth ) {
 						if ((that.stateMatrix[pos.x + j][pos.y - j] === player)) {
 							count++;
 						}
 					}
 				}
 				for (var j = 1; j < 5 - count; j++) {
-					if ( ((j + pos.y) >= that.matrixHeight + 1) || ((pos.x - j) < 0) ){
+					if ( ((j + pos.y) >= that.matrixHeight ) || ((pos.x - j) < 0) ){
 						return false;
 					} else {
 						if (that.stateMatrix[pos.x - j][pos.y + j] !== player) {
@@ -227,8 +235,8 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		},
 
 		drawn: function() {
-			alert("和棋");
-			this.init();
+			$("#timer").html(player + "获胜，游戏结束");
+			$(".mask").show();
 		},
 
 		gameOver: function(player) {

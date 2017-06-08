@@ -1,12 +1,11 @@
 define(["jquery"], function($) {
 	// 棋盘构造函数
-	function CheckerBoard(width, height, spacing, margin, gridLineColor, boardBackColor) {
-		this.width = width || 440; //
-		this.height = height || 440;
-		this.spacing = spacing || 30;
-		this.margin = margin || 10;
-		this.gridLineColor = gridLineColor || "#807d7d";
-		this.boardBackColor = boardBackColor || "#EACE9F";
+	function CheckerBoard(board) {
+		this.id = board.id;
+		this.spacing = board.spacing || 30;
+		this.margin = board.margin || 10;
+		this.gridLineColor = board.gridLineColor || "#807d7d";
+		this.boardBackColor = board.boardBackColor || "#EACE9F";
 	}
 
 	CheckerBoard.prototype = {
@@ -15,19 +14,22 @@ define(["jquery"], function($) {
 		// 初始化棋盘
 		init: function() {
 			$("main").height($("#checker-board").width() + $(".btn-group").height());
-			$("#checker-board").height($("#checker-board").width());
-			var canvas = $("#checker-board")[0];
-			$("#checker-board").unbind();
+			$("#" + this.id).height($("#" + this.id).width());
+			this.width = $("#" + this.id).attr("width");
+			this.height = $("#" + this.id).attr("height");
+
+			var canvas = $("#" + this.id)[0];
+			$("#" + this.id).unbind();
 			canvas.width = canvas.width;
 			canvas.height = canvas.height;
 			this.ctx = canvas.getContext("2d");
 			this.fillbackGroundColor();
-			this.drawBorder();
 			this.drawGrid();
+			this.drawBorder();
 			this.drawBoardArc();
 		},
 
-		// 绘制棋盘上的黑色小圆点
+		// 生成棋盘上的黑色小圆点
 		makeDot: function(x, y, r) {
 			this.ctx.fillStyle = "#000000";
 			this.ctx.beginPath();
@@ -53,7 +55,7 @@ define(["jquery"], function($) {
 		drawGrid: function() {
 			this.ctx.lineWidth = 1;
 			this.ctx.strokeStyle = this.gridLineColor;
-			for (var i = 1; i < 14; i++) {
+			for (var i = 0; i < 14; i++) {
 				this.ctx.moveTo(this.margin + this.spacing * i, this.margin);
 				this.ctx.lineTo(this.margin + this.spacing * i, this.width - this.margin);
 				this.ctx.moveTo(this.margin, this.margin + this.spacing * i);
