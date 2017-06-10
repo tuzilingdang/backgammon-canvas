@@ -1,5 +1,8 @@
 ## 五子棋
 
+### DEMO
+实现的五子棋效果可见demo： https://tuzilingdang.github.io/backgammon-canvas/
+
 ### 开始
 
 1. 下载文件或git clone 到本地
