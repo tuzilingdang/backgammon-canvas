@@ -3,7 +3,7 @@ define(["jquery"], function($) {
 	function CheckerBoard(board) {
 		this.id = board.id;
 		this.rows = board.rows || 14;
-		this.margin = board.margin || 10;
+		this.margin = board.margin || 20;
 		this.gridLineColor = board.gridLineColor || "#807d7d";
 		this.boardColor = board.boardColor || "#EACE9F";
 	}
