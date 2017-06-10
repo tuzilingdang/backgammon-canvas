@@ -2,10 +2,10 @@ define(["jquery"], function($) {
 	// 棋盘构造函数
 	function CheckerBoard(board) {
 		this.id = board.id;
-		this.spacing = board.spacing || 30;
+		this.rows = board.rows || 14;
 		this.margin = board.margin || 10;
 		this.gridLineColor = board.gridLineColor || "#807d7d";
-		this.boardBackColor = board.boardBackColor || "#EACE9F";
+		this.boardColor = board.boardColor || "#EACE9F";
 	}
 
 	CheckerBoard.prototype = {
@@ -13,10 +13,14 @@ define(["jquery"], function($) {
 
 		// 初始化棋盘
 		init: function() {
-			$("main").height($("#checker-board").width() + $(".btn-group").height());
+			// $("main").height($("#checker-board").width() + $(".btn-group").height());
 			$("#" + this.id).height($("#" + this.id).width());
+			$("#" + this.id).attr("width", $("#" + this.id).width() *2);
+			$("#" + this.id).attr("height", $("#" + this.id).height() *2);
 			this.width = $("#" + this.id).attr("width");
 			this.height = $("#" + this.id).attr("height");
+			this.cols = this.rows;
+			this.spacing = (this.width - this.margin * 2) / this.rows;
 
 			var canvas = $("#" + this.id)[0];
 			$("#" + this.id).unbind();
@@ -40,22 +44,22 @@ define(["jquery"], function($) {
 
 		// 填充棋盘颜色
 		fillbackGroundColor: function() {
-			this.ctx.fillStyle = this.boardBackColor;
+			this.ctx.fillStyle = this.boardColor;
 			this.ctx.fillRect(0, 0, this.width, this.height);
 		},
 
 		// 绘制棋盘边框
 		drawBorder: function() {
-			this.ctx.strokeStyle = "#000000";
-			this.ctx.lineWidth = 2;
-			this.ctx.strokeRect(10, 10, 420, 420);
+			this.ctx.strokeStyle = this.gridLineColor;
+			this.ctx.lineWidth = 5;
+			this.ctx.strokeRect( this.margin, this.margin, this.width - this.margin*2, this.height - this.margin*2);
 		},
 
 		// 绘制棋盘格子
 		drawGrid: function() {
-			this.ctx.lineWidth = 1;
+			this.ctx.lineWidth = 2;
 			this.ctx.strokeStyle = this.gridLineColor;
-			for (var i = 0; i < 14; i++) {
+			for (var i = 0; i < this.rows; i++) {
 				this.ctx.moveTo(this.margin + this.spacing * i, this.margin);
 				this.ctx.lineTo(this.margin + this.spacing * i, this.width - this.margin);
 				this.ctx.moveTo(this.margin, this.margin + this.spacing * i);
@@ -74,11 +78,11 @@ define(["jquery"], function($) {
 			var centerX = (this.width / 2).toFixed(2),
 				centerY = (this.height / 2).toFixed(2);
 
-			this.makeDot(centerX, centerY, 4);
-			this.makeDot(leftX, topY, 4);
-			this.makeDot(leftX, bottomY, 4);
-			this.makeDot(rightX, topY, 4);
-			this.makeDot(rightX, bottomY, 4);
+			this.makeDot(centerX, centerY, 8);
+			this.makeDot(leftX, topY, 8);
+			this.makeDot(leftX, bottomY, 8);
+			this.makeDot(rightX, topY, 8);
+			this.makeDot(rightX, bottomY, 8);
 		},
 
 		// 获取鼠标点击位置相对于canvas原点的像素坐标

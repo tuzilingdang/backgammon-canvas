@@ -19,7 +19,6 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 
 			this.setCheckerBoard(this.checkerBoard); // 设置棋盘属性
 			this.setPiece(this.piece.r); //  设置棋子属性
-			this.piece.init();
 
 			this.matrixWidth = (this.checkerBoard.width - 2 * this.checkerBoard.margin) / this.checkerBoard.spacing + 1; // 初始化矩阵长
 			this.matrixHeight = (this.checkerBoard.height - 2 * this.checkerBoard.margin) / this.checkerBoard.spacing + 1; // 初始化矩阵宽
@@ -34,6 +33,7 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		// 设置棋子属性
 		setPiece: function(r) {
 			this.piece = new Piece( r, this.checkerBoard.id );
+			this.piece.init();
 		},
 
 		// 开局
@@ -235,8 +235,8 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		},
 
 		drawn: function() {
-			$("#timer").html(player + "获胜，游戏结束");
-			$(".mask").show();
+			alert("和棋");
+			this.init();
 		},
 
 		gameOver: function(player) {

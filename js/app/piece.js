@@ -1,20 +1,32 @@
 define(["jquery"], function() {
 	// 棋子构造函数
-	function Piece(boardWidth, boardHeight, r) {
-		this.boardWidth = boardWidth || 440; //
-		this.boardHeight = boardHeight || 440;
-		this.r =  r || 10 // 棋子半径
+	function Piece( r, boardId) {
+		this.r =  r || 10, // 棋子半径
+		this.id = boardId
 	}
 
 	Piece.prototype = {
 		constructor: Piece,
 
 		init: function() {
-			$("#piece-board").height($("#piece-board").width());
-			var canvas = $("#piece-board")[0];
+			this.makePieceBoard("piece-board")
+			$(".piece-board").attr("width", $("#" + this.id).attr("width") );
+			$(".piece-board").attr("height", $("#" + this.id).attr("width") );
+			this.boardWidth = $("#" + this.id).attr("width");
+			this.boardHeight = $("#" + this.id).attr("width");
+			var canvas = $(".piece-board")[0];
 			this.ctx = canvas.getContext("2d");
 			canvas.width = canvas.width;
 			canvas.height = canvas.height;
+		},
+
+
+		makePieceBoard: function(name) {
+			var div = document.createElement("canvas");
+			div.className = name;
+			div.style.width = $("#" + this.id).width();
+			div.style.height = $("#" + this.id).height();
+			$("main").append(div);
 		},
 
 		// 填充棋子画布颜色
