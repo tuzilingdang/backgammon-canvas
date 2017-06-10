@@ -18,7 +18,7 @@ require(["jquery", "backgammon"], function($, Backgammon) {
         // boardColor: "rgb(150, 220, 188)"
     };
     var piece = {
-        r : 20
+        r : 26
     };
 
     var backgammon = new Backgammon( checkerBoard, piece );
