@@ -14,8 +14,8 @@ require(["jquery", "game"], function($, Game) {
         id: "checker-board",
         rows: 20, // 棋盘列数
         margin: 20, // 棋盘边框间距
-        gridLineColor: "rgb(128, 125, 125)",
-        boardColor: "rgb(150, 220, 188)"
+        // gridLineColor: "rgb(128, 125, 125)",
+        // boardColor: "rgb(150, 220, 188)"
     };
     var piece = {
         r : 24
