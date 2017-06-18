@@ -13,7 +13,6 @@ define(["jquery"], function($) {
 
 		// 初始化棋盘
 		init: function() {
-			// $("main").height($("#checker-board").width() + $(".btn-group").height());
 			$("#" + this.id).height($("#" + this.id).width());
 			$("#" + this.id).attr("width", $("#" + this.id).width() *2);
 			$("#" + this.id).attr("height", $("#" + this.id).height() *2);

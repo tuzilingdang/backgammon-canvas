@@ -1,12 +1,12 @@
-define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoard, Piece) {
+define("game", ["jquery", "checkerboard", "piece"], function($, CheckerBoard, Piece) {
 	// 五子棋构造函数
-	function Backgammon(checkerBoard, piece) {
+	function Game(checkerBoard, piece) {
 		this.checkerBoard = checkerBoard || {},
 		this.piece = piece || {}
 	}
 
-	Backgammon.prototype = {
-		constructor: Backgammon,
+	Game.prototype = {
+		constructor: Game,
 
 		// 初始化棋盘
 		init: function() {
@@ -289,5 +289,5 @@ define("backgammon", ["jquery", "checkerboard", "piece"], function($, CheckerBoa
 		}
 	}
 
-	return Backgammon;
+	return Game;
 });

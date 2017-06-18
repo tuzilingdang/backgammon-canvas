@@ -20,7 +20,6 @@ define(["jquery"], function() {
 			canvas.height = canvas.height;
 		},
 
-
 		makePieceBoard: function(name) {
 			var div = document.createElement("canvas");
 			div.className = name;
